@@ -9,7 +9,7 @@
     "dev": "nodemon --watch 'server' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
     "compile-typescript": "tsc"
   },
-  "author": "Ehud && Sergi && Oren",
+  "author": "Ehud && Sergei && Oren",
   "license": "ISC",
   "dependencies": {
     "@typegoose/typegoose": "^7.3.4",
