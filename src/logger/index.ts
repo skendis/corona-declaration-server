@@ -10,11 +10,11 @@ if (!fs.existsSync(logsDir)) {
     })
 }
 // define the time format
-function getTime() {
+const getTime = () => {
     const now = new Date();
     return now.toUTCString();
 }
-function doLog(line, level='Debug') {
+const doLog = (line, level='Debug')  => {
     line = `${getTime()} - ${level} - ${line}`
 
     if(process.env.NODE_ENV === 'production') {
