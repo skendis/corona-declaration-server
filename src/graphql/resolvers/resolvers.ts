@@ -10,7 +10,7 @@ const getEmployee = async (root, data: any) =>
 const updateEmployee = async (root, { _id, input }) =>
   EmployeeModel.findOneAndUpdate({ _id }, input);
 
-//load resolvers with the functions related to the schemas of graphql.
+// load resolvers with the functions related to the schemas of graphql.
 const resolvers = {
   Query: {
     employees: getEmployees,

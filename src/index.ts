@@ -5,34 +5,35 @@ import * as dotenv from "dotenv";
 
 import schema from "./graphql/schema/schema";
 import resolvers from "./graphql/resolvers/resolvers";
+import { logger } from "./logger/index";
 
-//if not in production take the env vars from the local .env git ignored file.
+// if not in production take the env vars from the local .env git ignored file.
 // later in production will load the env vars from the hosting company settings directly
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: __dirname + "/.env" });
 }
 
-//load mongo db urlfor connection from env var
+// load mongo db urlfor connection from env var
 const MONGO_URL = process.env.MONGO_URL;
 
-//start the app
+// start the app
 const start = async () => {
   const app = express();
 
-  //connect to db through mongoose.
+  // connect to db through mongoose.
   mongoose.connect(MONGO_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useFindAndModify: false,
   });
 
-  //log when there is an error in connection to db
+  // log when there is an error in connection to db
   mongoose.connection.on("error", (err) => {
-    console.log("err", err);
+    logger.error(err);
   });
 
   mongoose.connection.on("connected", (err, res) => {
-    console.log("mongoose is connected");
+    logger.info('mongoose is connected');
   });
 
   // Set that when doing an update to employee in mongoose - then the returned employee object
@@ -45,11 +46,11 @@ const start = async () => {
     resolvers,
   });
 
-  //set the app api endpoint (only one endpoint for all calls - and connecting trough the graphql query language)
+  // set the app api endpoint (only one endpoint for all calls - and connecting trough the graphql query language)
   server.applyMiddleware({ app, path: "/graphql" });
 
   app.listen({ port: 8000 }, () => {
-    console.log("Apollo Server on http://localhost:8000/graphql");
+    logger.info("Apollo Server on http://localhost:8000/graphql");
   });
 };
 
