@@ -1,0 +1,4 @@
+type Query {
+    employees: [Employee]
+    employee(_id: String!): Employee
+}

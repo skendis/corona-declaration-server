@@ -1,0 +1,3 @@
+input EmployeeInput {
+    name: String!
+}
